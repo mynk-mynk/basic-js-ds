@@ -1,6 +1,6 @@
 const { NotImplementedError } = require('../extensions/index.js');
 
-// const { Node } = require('../extensions/list-tree.js');
+const { Node } = require('../extensions/list-tree.js');
 
 /**
 * Implement simple binary search tree according to task description
@@ -8,13 +8,7 @@ const { NotImplementedError } = require('../extensions/index.js');
 */
 
 
-class Node {
-  constructor(value) {
-    this.value = value;
-    this.left = null;
-    this.right = null;
-  }
-}
+
 
 class BinarySearchTree {
   
@@ -23,8 +17,7 @@ class BinarySearchTree {
   }
   
   root() {
-  
-    return this.value ? this.value : null;
+    return this.content;
   }
 
   add(data) {
@@ -34,16 +27,16 @@ class BinarySearchTree {
     function addNode(node, value) {
 
       if (!node) {
-        return new Node(value);
+        return new Node(data);
       }
 
-      if (node.value === value) {
+      if (node.data === data) {
         return node;
 
       } else {
 
-        if (value < node.value) node.left = addNode(node.left, value);
-        if (value > node.value) node.right = addNode(node.right, value);
+        if (data < node.data) node.left = addNode(node.left, data);
+        if (data > node.data) node.right = addNode(node.right, data);
       }
 
       return node;
@@ -53,15 +46,15 @@ class BinarySearchTree {
   has(data) {
     return hasNode(this.content, data);
 
-    function hasNode(node, value) {
+    function hasNode(node, data) {
 
       if (!node) return false;
 
-      if (node.value === value) {
+      if (node.data === data) {
         return true;
       }
 
-      return value < node.value ? hasNode(node.left, value) : hasNode(node.right, value);
+      return data < node.data ? hasNode(node.left, data) : hasNode(node.right, data);
     }
   }
 
@@ -69,31 +62,31 @@ class BinarySearchTree {
     
     return findNode(this.content, data);
 
-    function findNode(node, value) {
+    function findNode(node, data) {
 
       if (!node) return null;
 
-      if (node.value === value) {
+      if (node.data === data) {
         return node;
       }
 
-      return value < node.value ? findNode(node.left, value) : findNode(node.right, value);
+      return data < node.data ? findNode(node.left, data) : findNode(node.right, data);
     }
   }
 
   remove(data) {
     this.content = removeNode(this.content, data);
 
-    function removeNode(node, value) {
+    function removeNode(node, data) {
 
       if (!node) return;
 
-      if (value < node.value) {
-        node.left = removeNode(node.left, value);
+      if (data < node.data) {
+        node.left = removeNode(node.left, data);
         return node;
 
-      } else if (value > node.value) {
-        node.right = removeNode(node.right, value);
+      } else if (data > node.data) {
+        node.right = removeNode(node.right, data);
         return node;
 
       } else {
@@ -117,8 +110,8 @@ class BinarySearchTree {
         maxLeft = maxLeft.right;
       }
 
-      node.value = maxLeft.value;
-      node.left = removeNode(node.left, maxLeft.value);
+      node.data = maxLeft.data;
+      node.left = removeNode(node.left, maxLeft.data);
 
       return node;
     }
@@ -135,7 +128,7 @@ class BinarySearchTree {
         node = node.left;
       }
 
-      return node.value;
+      return node.data;
     }
   }
 
@@ -150,7 +143,7 @@ class BinarySearchTree {
         node = node.right;
       }
 
-      return node.value;
+      return node.data;
     }
   }
 }
